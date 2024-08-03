@@ -147,7 +147,7 @@ multBtn.addEventListener("click", function() {
 
 percentBtn.addEventListener("click", function() {
   input += "/100";
-  operation.textContent = input;
+  operation.textContent += "%";
 });
 
 powerBtn.addEventListener("click", function() {
