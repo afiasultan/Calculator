@@ -42,6 +42,8 @@ sinBtn = document.getElementById("sin");
 cosBtn = document.getElementById("cos");
 tanBtn = document.getElementById("tan");
 
+sqrtBtn = document.getElementById("sqrt");
+
 zeroBtn = document.getElementById("0");
 oneBtn = document.getElementById("1");
 twoBtn = document.getElementById("2");
@@ -169,6 +171,11 @@ tanBtn.addEventListener("click", function() {
   operation.textContent = input;
 });
 
+sqrtBtn.addEventListener("click", function() {
+  input += "√(";
+  operation.textContent = input;
+});
+
 document.addEventListener("keydown", function(event) {
 
   if (event.key >= '0' && event.key <= '9' || event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '^') {
@@ -195,7 +202,8 @@ document.addEventListener("keydown", function(event) {
       cos();
     } else if (input.includes("tan(")) {
       tan();
-  
+    } else if (input.includes("√(")) {
+      sqrt();
     } else {
       result.textContent = formatNumber(eval(input), 9);
     }
@@ -219,9 +227,10 @@ equalsBtn.addEventListener("click", function() {
   } else if (input.includes("tan(")) {
     tan();
 
-  }
-  
-  else {
+  } else if (input.includes("√(")) {
+    sqrt();
+
+  } else {
     result.textContent = formatNumber(eval(input), 9);
   }
   
@@ -246,14 +255,20 @@ function sin() {
 
 function cos() {
   input = input.slice(4);
-  var sinResult = Math.cos(eval(input));
-  result.textContent = formatNumber(sinResult, 9);
+  var cosResult = Math.cos(eval(input));
+  result.textContent = formatNumber(cosResult, 9);
 }
 
 function tan() {
   input = input.slice(4);
-  var sinResult = Math.tan(eval(input));
-  result.textContent = formatNumber(sinResult, 9);
+  var tanResult = Math.tan(eval(input));
+  result.textContent = formatNumber(tanResult, 9);
+}
+
+function sqrt() {
+  input = input.slice(2);
+  var sqrtResult = Math.sqrt(eval(input));
+  result.textContent = formatNumber(sqrtResult, 9);
 }
 
 
