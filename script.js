@@ -138,10 +138,95 @@ multBtn.addEventListener("click", function() {
   operation.textContent = input;
 });
 
+percentBtn.addEventListener("click", function() {
+  input += "/100";
+  operation.textContent = input;
+});
+
 equalsBtn.addEventListener("click", function() {
-  result.textContent = eval(input);
+  
+  result.textContent = formatNumber(eval(input), 9)
   input = "";
 
 });
 
+document.addEventListener("keydown", function(event) {
+  if (event.key === "0") {
+      input += "0";
+  }
 
+  else if (event.key === "1") {
+    input += "1";
+  }
+
+  else if (event.key === "2") {
+    input += "2";
+  }
+
+  else if (event.key === "3") {
+    input += "3";
+  }
+
+  else if (event.key === "4") {
+    input += "4";
+  }
+
+  else if (event.key === "5") {
+    input += "5";
+  }
+
+  else if (event.key === "6") {
+    input += "6";
+  }
+
+  else if (event.key === "7") {
+    input += "7";
+  }
+
+  else if (event.key === "8") {
+    input += "8";
+  }
+
+  else if (event.key === "9") {
+    input += "9";
+  }
+
+  else if (event.key === "Backspace" || event.key === "Delete") {
+    input = input.slice(0, -1);
+
+    if (result.textContent != "") {
+      result.textContent = "";
+    }
+  }
+
+  else if (event.key === "+") {
+    input += "+";
+  }
+
+  else if (event.key === "-") {
+    input += "-";
+  }
+
+  else if (event.key === "*") {
+    input += "*";
+  }
+
+  else if (event.key === "/") {
+    input += "/";
+  }
+
+  operation.textContent = input;
+
+  if (event.key === "Return" || event.key == "Enter") {
+    result.textContent = formatNumber(eval(input), 9)
+    input = "";
+  }
+
+});
+
+
+function formatNumber(value, decimalPlaces) {
+  let factor = Math.pow(10, decimalPlaces);
+  let roundedValue = Math.round(value * factor) / factor;
+  return roundedValue.toString();
+}
