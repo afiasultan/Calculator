@@ -36,6 +36,11 @@ plusBtn = document.getElementById("plus");
 equalsBtn = document.getElementById("equal");
 percentBtn = document.getElementById("percent");
 decimalBtn = document.getElementById("decimal");
+powerBtn = document.getElementById("power");
+
+sinBtn = document.getElementById("sin");
+cosBtn = document.getElementById("cos");
+tanBtn = document.getElementById("tan");
 
 zeroBtn = document.getElementById("0");
 oneBtn = document.getElementById("1");
@@ -143,52 +148,31 @@ percentBtn.addEventListener("click", function() {
   operation.textContent = input;
 });
 
-equalsBtn.addEventListener("click", function() {
-  
-  result.textContent = formatNumber(eval(input), 9)
-  input = "";
+powerBtn.addEventListener("click", function() {
+  input += "^";
+  operation.textContent = input;
+});
 
+sinBtn.addEventListener("click", function() {
+  input += "sin(";
+  operation.textContent = input;
+  
+});
+
+cosBtn.addEventListener("click", function() {
+  input += "cos(";
+  operation.textContent = input;
+});
+
+tanBtn.addEventListener("click", function() {
+  input += "tan(";
+  operation.textContent = input;
 });
 
 document.addEventListener("keydown", function(event) {
-  if (event.key === "0") {
-      input += "0";
-  }
 
-  else if (event.key === "1") {
-    input += "1";
-  }
-
-  else if (event.key === "2") {
-    input += "2";
-  }
-
-  else if (event.key === "3") {
-    input += "3";
-  }
-
-  else if (event.key === "4") {
-    input += "4";
-  }
-
-  else if (event.key === "5") {
-    input += "5";
-  }
-
-  else if (event.key === "6") {
-    input += "6";
-  }
-
-  else if (event.key === "7") {
-    input += "7";
-  }
-
-  else if (event.key === "8") {
-    input += "8";
-  }
-
-  else if (event.key === "9") {
-    input += "9";
+  if (event.key >= '0' && event.key <= '9' || event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '^') {
+    input += event.key;
   }
 
   else if (event.key === "Backspace" || event.key === "Delete") {
@@ -199,30 +183,78 @@ document.addEventListener("keydown", function(event) {
     }
   }
 
-  else if (event.key === "+") {
-    input += "+";
-  }
-
-  else if (event.key === "-") {
-    input += "-";
-  }
-
-  else if (event.key === "*") {
-    input += "*";
-  }
-
-  else if (event.key === "/") {
-    input += "/";
-  }
-
   operation.textContent = input;
-
+ 
   if (event.key === "Return" || event.key == "Enter") {
-    result.textContent = formatNumber(eval(input), 9)
+    if (input.includes("^")) {
+      power();
+  
+    } else if (input.includes("sin(")) {
+      sin();
+    } else if (input.includes("cos(")) {
+      cos();
+    } else if (input.includes("tan(")) {
+      tan();
+  
+    } else {
+      result.textContent = formatNumber(eval(input), 9);
+    }
+    
     input = "";
   }
 
 });
+
+equalsBtn.addEventListener("click", function() {
+
+  if (input.includes("^")) {
+    power();
+  
+  } else if (input.includes("sin(")) {
+    sin();
+
+  } else if (input.includes("cos(")) {
+    cos();
+
+  } else if (input.includes("tan(")) {
+    tan();
+
+  }
+  
+  else {
+    result.textContent = formatNumber(eval(input), 9);
+  }
+  
+  input = "";
+
+});
+
+function power() {
+  var nums = input.split("^");
+  var base = parseFloat(nums[0]);
+  var exponent = parseFloat(nums[1]);
+  var powerResult = eval(base) ** eval(exponent);
+  result.textContent = formatNumber(powerResult, 9);
+
+};
+
+function sin() {
+  input = input.slice(4);
+  var sinResult = Math.sin(eval(input));
+  result.textContent = formatNumber(sinResult, 9);
+}
+
+function cos() {
+  input = input.slice(4);
+  var sinResult = Math.cos(eval(input));
+  result.textContent = formatNumber(sinResult, 9);
+}
+
+function tan() {
+  input = input.slice(4);
+  var sinResult = Math.tan(eval(input));
+  result.textContent = formatNumber(sinResult, 9);
+}
 
 
 function formatNumber(value, decimalPlaces) {
