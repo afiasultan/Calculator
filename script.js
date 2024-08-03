@@ -178,7 +178,7 @@ sqrtBtn.addEventListener("click", function() {
 
 document.addEventListener("keydown", function(event) {
 
-  if (event.key >= '0' && event.key <= '9' || event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '^') {
+  if (event.key >= '0' && event.key <= '9' || event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '^' || event.key === '.') {
     input += event.key;
   }
 
@@ -205,7 +205,7 @@ document.addEventListener("keydown", function(event) {
     } else if (input.includes("√(")) {
       sqrt();
     } else {
-      result.textContent = formatNumber(eval(input), 9);
+      result.textContent = formatNumber(eval(input));
     }
     
     input = "";
@@ -231,7 +231,7 @@ equalsBtn.addEventListener("click", function() {
     sqrt();
 
   } else {
-    result.textContent = formatNumber(eval(input), 9);
+    result.textContent = formatNumber(eval(input));
   }
   
   input = "";
@@ -243,37 +243,37 @@ function power() {
   var base = parseFloat(nums[0]);
   var exponent = parseFloat(nums[1]);
   var powerResult = eval(base) ** eval(exponent);
-  result.textContent = formatNumber(powerResult, 9);
+  result.textContent = formatNumber(powerResult);
 
 };
 
 function sin() {
   input = input.slice(4);
   var sinResult = Math.sin(eval(input));
-  result.textContent = formatNumber(sinResult, 9);
+  result.textContent = formatNumber(sinResult);
 }
 
 function cos() {
   input = input.slice(4);
   var cosResult = Math.cos(eval(input));
-  result.textContent = formatNumber(cosResult, 9);
+  result.textContent = formatNumber(cosResult);
 }
 
 function tan() {
   input = input.slice(4);
   var tanResult = Math.tan(eval(input));
-  result.textContent = formatNumber(tanResult, 9);
+  result.textContent = formatNumber(tanResult);
 }
 
 function sqrt() {
   input = input.slice(2);
   var sqrtResult = Math.sqrt(eval(input));
-  result.textContent = formatNumber(sqrtResult, 9);
+  result.textContent = formatNumber(sqrtResult);
 }
 
 
-function formatNumber(value, decimalPlaces) {
-  let factor = Math.pow(10, decimalPlaces);
+function formatNumber(value) {
+  let factor = Math.pow(10, 9);
   let roundedValue = Math.round(value * factor) / factor;
   return roundedValue.toString();
 }
